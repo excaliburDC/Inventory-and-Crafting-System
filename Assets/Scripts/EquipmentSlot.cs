@@ -8,5 +8,6 @@ public class EquipmentSlot : ItemSlot
     {
         base.OnValidate();
         gameObject.name = equipmentType.ToString() + " Slot";
+        
     }
 }
