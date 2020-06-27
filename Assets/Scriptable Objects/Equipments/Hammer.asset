@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Hammer
   itemIcon: {fileID: 21300000, guid: 0f0a4c90f49a5b748a80fe1d5a27e747, type: 3}
-  strengthBonus: 0
-  intelligenceBonus: 0
-  charismaBonus: 0
-  vitalityBonus: 0
+  strengthBonus: 40
+  intelligenceBonus: 2
+  charismaBonus: 2
+  vitalityBonus: 20
   strengthPercentBonus: 0
   intelligencePercentBonus: 0
   charismaPercentBonus: 0
-  vitaityPercentBonus: 0
+  vitalityPercentBonus: 0
   equipmentType: 4

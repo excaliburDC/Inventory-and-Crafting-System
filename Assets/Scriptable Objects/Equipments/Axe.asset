@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Axe
   itemIcon: {fileID: 21300000, guid: 1b112affca805474aba29e57512dc853, type: 3}
-  strengthBonus: 0
-  intelligenceBonus: 0
-  charismaBonus: 0
-  vitalityBonus: 0
+  strengthBonus: 15
+  intelligenceBonus: 3
+  charismaBonus: 1
+  vitalityBonus: 10
   strengthPercentBonus: 0
   intelligencePercentBonus: 0
   charismaPercentBonus: 0
-  vitaityPercentBonus: 0
+  vitalityPercentBonus: 0
   equipmentType: 5

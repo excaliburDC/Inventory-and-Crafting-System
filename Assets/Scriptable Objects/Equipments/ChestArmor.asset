@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: ChestArmor
   itemIcon: {fileID: 21300000, guid: ab0226cd28d392f419078c390d24f898, type: 3}
-  strengthBonus: 0
-  intelligenceBonus: 0
-  charismaBonus: 0
-  vitalityBonus: 0
+  strengthBonus: 30
+  intelligenceBonus: 10
+  charismaBonus: 15
+  vitalityBonus: 20
   strengthPercentBonus: 0
   intelligencePercentBonus: 0
   charismaPercentBonus: 0
-  vitaityPercentBonus: 0
+  vitalityPercentBonus: 0
   equipmentType: 1
