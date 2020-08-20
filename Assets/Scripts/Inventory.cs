@@ -9,14 +9,28 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform itemsParent;
     [SerializeField] private ItemSlot[] itemsSlot;
 
-    public event Action<Item> OnItemRightClickedEvent;
+    public event Action<ItemSlot> OnItemPointerEnterEvent;
+    public event Action<ItemSlot> OnItemPointerExitEvent;
+    public event Action<ItemSlot> OnItemRightClickEvent;
+    public event Action<ItemSlot> OnItemBeginDragEvent;
+    public event Action<ItemSlot> OnItemEndDragEvent;
+    public event Action<ItemSlot> OnItemDragEvent;
+    public event Action<ItemSlot> OnItemDropEvent;
 
-    private void Awake()
+    private void Start()
     {
         for (int i = 0; i < itemsSlot.Length; i++)
         {
-            itemsSlot[i].OnRightClickEvent += OnItemRightClickedEvent;
+            itemsSlot[i].OnPointerEnterEvent += OnItemPointerEnterEvent;
+            itemsSlot[i].OnPointerExitEvent += OnItemPointerExitEvent;
+            itemsSlot[i].OnRightClickEvent += OnItemRightClickEvent;
+            itemsSlot[i].OnBeginDragEvent += OnItemBeginDragEvent;
+            itemsSlot[i].OnEndDragEvent += OnItemEndDragEvent;
+            itemsSlot[i].OnDragEvent += OnItemDragEvent;
+            itemsSlot[i].OnDropEvent += OnItemDropEvent;
         }
+
+        RefreshItemsUI();
     }
 
     private void OnValidate()
@@ -45,27 +59,74 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        if (IsFull())
-            return false;
+        #region For Click and Equip Method
+        //if (IsFull())
+        //    return false;
 
-        items.Add(item);
-        RefreshItemsUI();
-        return true;
+        //items.Add(item);
+        //RefreshItemsUI();
+        //return true;
+        #endregion
+
+        #region For Drag and Drop Method
+        for (int i = 0; i < itemsSlot.Length; i++)
+        {
+            if(itemsSlot[i].Item==null)
+            {
+                itemsSlot[i].Item = item;
+                return true;
+            }
+        }
+
+        return false;
+
+        #endregion
     }
 
     public bool RemoveItem(Item item)
     {
-        if(items.Remove(item))
+        #region For Click and Equip Method
+        //if(items.Remove(item))
+        //{
+        //    RefreshItemsUI();
+        //    return true;
+        //}
+
+        //return false; 
+        #endregion
+
+        #region For Drag and Drop Method
+        for (int i = 0; i < itemsSlot.Length; i++)
         {
-            RefreshItemsUI();
-            return true;
+            if (itemsSlot[i].Item == item)
+            {
+                itemsSlot[i].Item = null;
+                return true;
+            }
         }
 
         return false;
+
+        #endregion
     }
 
     public bool IsFull()
     {
-        return items.Count >= itemsSlot.Length;
+        #region For Click and Equip Method
+        //return items.Count >= itemsSlot.Length; 
+        #endregion
+
+        #region For Drag and Drop Method
+        for (int i = 0; i < itemsSlot.Length; i++)
+        {
+            if (itemsSlot[i].Item == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+
+        #endregion
     }
 }
