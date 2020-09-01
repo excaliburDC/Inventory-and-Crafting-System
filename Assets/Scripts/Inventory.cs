@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour,IItemContainer
 {
     [SerializeField] private List<Item> items;
     [SerializeField] private Transform itemsParent;
@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour
 
         for (; i < items.Count && i<itemsSlot.Length; i++)
         {
-            itemsSlot[i].Item = items[i];
+            itemsSlot[i].Item = Instantiate(items[i]);
         }
 
         for (; i < itemsSlot.Length; i++)
@@ -110,6 +110,22 @@ public class Inventory : MonoBehaviour
         #endregion
     }
 
+    public Item RemoveItem(string itemID)
+    {
+        for (int i = 0; i < itemsSlot.Length; i++)
+        {
+            Item item = itemsSlot[i].Item;
+            if (item != null && item.ID == itemID)
+            {
+                itemsSlot[i].Item = null;
+                return item;
+            }
+        }
+
+        return null;
+
+    }
+
     public bool IsFull()
     {
         #region For Click and Equip Method
@@ -128,5 +144,34 @@ public class Inventory : MonoBehaviour
         return true;
 
         #endregion
+    }
+
+    //public bool ContainsItem(Item item)
+    //{
+    //    for (int i = 0; i < itemsSlot.Length; i++)
+    //    {
+    //        if (itemsSlot[i].Item == item)
+    //        {
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
+
+    public int ItemCount(string itemID)
+    {
+        int numItems = 0;
+
+        for (int i = 0; i < itemsSlot.Length; i++)
+        {
+            if (itemsSlot[i].Item.ID == itemID)
+            {
+                numItems++;
+                
+            }
+        }
+
+        return numItems;
     }
 }

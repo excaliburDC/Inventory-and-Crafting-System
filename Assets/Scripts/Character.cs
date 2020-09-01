@@ -152,6 +152,9 @@ public class Character : MonoBehaviour
     }
     private void Drop(ItemSlot dropItemSlot)
     {
+        if (dropItemSlot == null)
+            return;
+
         if(dropItemSlot.CanReceiveItem(draggedSlot.Item) && draggedSlot.CanReceiveItem(dropItemSlot.Item))
         {
             EquippableItem dragItem = draggedSlot.Item as EquippableItem;
