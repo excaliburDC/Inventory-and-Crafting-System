@@ -155,36 +155,60 @@ public class Character : MonoBehaviour
         if (dropItemSlot == null)
             return;
 
-        if(dropItemSlot.CanReceiveItem(draggedSlot.Item) && draggedSlot.CanReceiveItem(dropItemSlot.Item))
+        if(dropItemSlot.CanAddStack(draggedSlot.Item))
         {
-            EquippableItem dragItem = draggedSlot.Item as EquippableItem;
-            EquippableItem dropItem = dropItemSlot.Item as EquippableItem;
-
-            if(draggedSlot is EquipmentSlot)
-            {
-                if (dragItem != null)
-                    dragItem.UnequipStat(this);
-
-                if (dropItem != null)
-                    dropItem.EquipStat(this);
-            }
-
-            if (dropItemSlot is EquipmentSlot)
-            {
-                if (dragItem != null)
-                    dragItem.EquipStat(this);
-
-                if (dropItem != null)
-                    dropItem.UnequipStat(this);
-            }
-
-            statsPanel.UpdateStatsValue();
-
-            Item draggedItem = draggedSlot.Item;
-            draggedSlot.Item = dropItemSlot.Item;
-            dropItemSlot.Item = draggedItem;
+            AddItemStacks(dropItemSlot);
         }
-        
+
+        if (dropItemSlot.CanReceiveItem(draggedSlot.Item) && draggedSlot.CanReceiveItem(dropItemSlot.Item))
+        {
+            SwapItems(dropItemSlot);
+        }
+
+    }
+
+    private void SwapItems(ItemSlot dropItemSlot)
+    {
+        EquippableItem dragItem = draggedSlot.Item as EquippableItem;
+        EquippableItem dropItem = dropItemSlot.Item as EquippableItem;
+
+        if (draggedSlot is EquipmentSlot)
+        {
+            if (dragItem != null)
+                dragItem.UnequipStat(this);
+
+            if (dropItem != null)
+                dropItem.EquipStat(this);
+        }
+
+        if (dropItemSlot is EquipmentSlot)
+        {
+            if (dragItem != null)
+                dragItem.EquipStat(this);
+
+            if (dropItem != null)
+                dropItem.UnequipStat(this);
+        }
+
+        statsPanel.UpdateStatsValue();
+
+        Item draggedItem = draggedSlot.Item;
+        int draggedItemAmt = draggedSlot.ItemAmount;
+
+        draggedSlot.Item = dropItemSlot.Item;
+        draggedSlot.ItemAmount = dropItemSlot.ItemAmount;
+
+        dropItemSlot.Item = draggedItem;
+        dropItemSlot.ItemAmount = draggedItemAmt;
+    }
+
+    private void AddItemStacks(ItemSlot dropItemSlot)
+    {
+        int numAddStacks = dropItemSlot.Item.maxStacks - dropItemSlot.ItemAmount;
+        int stacksToAdd = Mathf.Min(numAddStacks, draggedSlot.ItemAmount);
+
+        dropItemSlot.ItemAmount -= stacksToAdd;
+        draggedSlot.ItemAmount += stacksToAdd;
     }
 
     public void EquipItem(EquippableItem item)

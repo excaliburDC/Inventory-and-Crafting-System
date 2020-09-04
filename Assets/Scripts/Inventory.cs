@@ -48,12 +48,14 @@ public class Inventory : MonoBehaviour,IItemContainer
 
         for (; i < items.Count && i<itemsSlot.Length; i++)
         {
-            itemsSlot[i].Item = Instantiate(items[i]);
+            itemsSlot[i].Item = items[i].GetItemCopy();
+            itemsSlot[i].ItemAmount = 1;
         }
 
         for (; i < itemsSlot.Length; i++)
         {
             itemsSlot[i].Item = null;
+            itemsSlot[i].ItemAmount = 0;
         }
     }
 
@@ -71,9 +73,10 @@ public class Inventory : MonoBehaviour,IItemContainer
         #region For Drag and Drop Method
         for (int i = 0; i < itemsSlot.Length; i++)
         {
-            if(itemsSlot[i].Item==null)
+            if(itemsSlot[i].Item==null || itemsSlot[i].CanAddStack(item))
             {
                 itemsSlot[i].Item = item;
+                itemsSlot[i].ItemAmount++;
                 return true;
             }
         }
@@ -100,7 +103,8 @@ public class Inventory : MonoBehaviour,IItemContainer
         {
             if (itemsSlot[i].Item == item)
             {
-                itemsSlot[i].Item = null;
+                itemsSlot[i].ItemAmount--;
+               
                 return true;
             }
         }
@@ -117,7 +121,8 @@ public class Inventory : MonoBehaviour,IItemContainer
             Item item = itemsSlot[i].Item;
             if (item != null && item.ID == itemID)
             {
-                itemsSlot[i].Item = null;
+                itemsSlot[i].ItemAmount--;
+               
                 return item;
             }
         }

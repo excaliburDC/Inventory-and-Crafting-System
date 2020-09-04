@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class ItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,IPointerExitHandler,IDragHandler,IBeginDragHandler,IEndDragHandler,IDropHandler
 {
     [SerializeField] private Image itemImage;
+    [SerializeField] private TMP_Text amountText;
     
     private Vector2 originalPos;
 
@@ -47,11 +49,52 @@ public class ItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHandler,
         }
     }
 
+    private int _itemAmount;
+
+    public int ItemAmount
+    {
+        get
+        {
+            return _itemAmount;
+        }
+
+        set
+        {
+            _itemAmount = value;
+
+            if (_itemAmount < 0)
+                _itemAmount = 0;
+
+            if (_itemAmount == 0)
+                Item = null;
+
+            if(amountText!=null)
+            {
+                amountText.enabled = _item != null  && _itemAmount > 1;
+
+                if (amountText.enabled)
+                {
+                    amountText.text = _itemAmount.ToString();
+                }
+            }
+            
+        }
+    }
+
+
     protected virtual void OnValidate()
     {
         if (itemImage == null)
             itemImage = GetComponent<Image>();
 
+        if (amountText == null)
+            amountText = GetComponentInChildren<TMP_Text>();
+
+    }
+
+    public virtual bool CanAddStack(Item item, int amount = 1)
+    {
+        return Item != null && Item.ID == item.ID && ItemAmount + amount <= item.maxStacks;
     }
 
     public virtual bool CanReceiveItem(Item item)

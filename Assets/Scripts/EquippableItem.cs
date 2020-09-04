@@ -33,6 +33,17 @@ public class EquippableItem : Item
     [Header("Type of Equipment")]
     public EquipmentType equipmentType;
 
+    public override Item GetItemCopy()
+    {
+        return Instantiate(this);
+
+    }
+
+    public override void DestroyItem()
+    {
+        Destroy(this);
+    }
+
     public void EquipStat(Character c)
     {
         if (strengthBonus != 0)
