@@ -8,13 +8,13 @@ public class EquipmentPanel : MonoBehaviour
     [SerializeField] private Transform equipmentParent;
     [SerializeField] private EquipmentSlot[] equipmentsSlot;
 
-    public event Action<ItemSlot> OnItemPointerEnterEvent;
-    public event Action<ItemSlot> OnItemPointerExitEvent;
-    public event Action<ItemSlot> OnItemRightClickEvent;
-    public event Action<ItemSlot> OnItemBeginDragEvent;
-    public event Action<ItemSlot> OnItemEndDragEvent;
-    public event Action<ItemSlot> OnItemDragEvent;
-    public event Action<ItemSlot> OnItemDropEvent;
+    public event Action<BaseItemSlot> OnItemPointerEnterEvent;
+    public event Action<BaseItemSlot> OnItemPointerExitEvent;
+    public event Action<BaseItemSlot> OnItemRightClickEvent;
+    public event Action<BaseItemSlot> OnItemBeginDragEvent;
+    public event Action<BaseItemSlot> OnItemEndDragEvent;
+    public event Action<BaseItemSlot> OnItemDragEvent;
+    public event Action<BaseItemSlot> OnItemDropEvent;
 
     private void Start()
     {

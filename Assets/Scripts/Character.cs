@@ -12,12 +12,13 @@ public class Character : MonoBehaviour
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private EquipmentPanel equipmentPanel;
+    [SerializeField] private CraftingWindow craftingWindow;
     [SerializeField] private StatsPanel statsPanel;
     [SerializeField] private ItemTooltip itemTooltip;
     [SerializeField] private Image draggableItem;
 
 
-    private ItemSlot draggedSlot;
+    private BaseItemSlot draggedSlot;
 
     private void OnValidate()
     {
@@ -40,10 +41,12 @@ public class Character : MonoBehaviour
         //Pointer enter
         inventory.OnItemPointerEnterEvent += ShowToolTip;
         equipmentPanel.OnItemPointerEnterEvent += ShowToolTip;
+        craftingWindow.OnItemPointerEnterEvent += ShowToolTip;
 
         //Pointer exit
         inventory.OnItemPointerExitEvent += HideToolTip;
         equipmentPanel.OnItemPointerExitEvent += HideToolTip;
+        craftingWindow.OnItemPointerExitEvent += HideToolTip;
 
         //Begin Drag
         inventory.OnItemBeginDragEvent += BeginDrag;
@@ -85,7 +88,7 @@ public class Character : MonoBehaviour
     //} 
     #endregion
 
-    private void EquipFromInventory(ItemSlot itemSlot)
+    private void EquipFromInventory(BaseItemSlot itemSlot)
     {
         Debug.Log("Equip Method called");
         EquippableItem equippableItem = itemSlot.Item as EquippableItem;
@@ -96,7 +99,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void UnequipFromPanel(ItemSlot itemSlot)
+    private void UnequipFromPanel(BaseItemSlot itemSlot)
     {
         Debug.Log("Unequip Method called");
         EquippableItem equippableItem = itemSlot.Item as EquippableItem;
@@ -106,7 +109,7 @@ public class Character : MonoBehaviour
             UnequipItem(equippableItem);
         }
     }
-    private void ShowToolTip(ItemSlot itemSlot)
+    private void ShowToolTip(BaseItemSlot itemSlot)
     {
         EquippableItem equippableItem = itemSlot.Item as EquippableItem;
 
@@ -116,7 +119,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void HideToolTip(ItemSlot itemSlot)
+    private void HideToolTip(BaseItemSlot itemSlot)
     {
         EquippableItem equippableItem = itemSlot.Item as EquippableItem;
 
@@ -126,7 +129,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void BeginDrag(ItemSlot itemSlot)
+    private void BeginDrag(BaseItemSlot itemSlot)
     {
         if(itemSlot.Item != null) 
         {
@@ -136,13 +139,13 @@ public class Character : MonoBehaviour
             draggableItem.enabled = true;
         }
     }
-    private void EndDrag(ItemSlot itemSlot)
+    private void EndDrag(BaseItemSlot itemSlot)
     {
         draggedSlot = null;
         draggableItem.enabled = false;
     }
 
-    private void Drag(ItemSlot itemSlot)
+    private void Drag(BaseItemSlot itemSlot)
     {
         if(draggableItem.enabled)
         {
@@ -150,7 +153,7 @@ public class Character : MonoBehaviour
         }
         
     }
-    private void Drop(ItemSlot dropItemSlot)
+    private void Drop(BaseItemSlot dropItemSlot)
     {
         if (dropItemSlot == null)
             return;
@@ -167,7 +170,7 @@ public class Character : MonoBehaviour
 
     }
 
-    private void SwapItems(ItemSlot dropItemSlot)
+    private void SwapItems(BaseItemSlot dropItemSlot)
     {
         EquippableItem dragItem = draggedSlot.Item as EquippableItem;
         EquippableItem dropItem = dropItemSlot.Item as EquippableItem;
@@ -202,7 +205,7 @@ public class Character : MonoBehaviour
         dropItemSlot.ItemAmount = draggedItemAmt;
     }
 
-    private void AddItemStacks(ItemSlot dropItemSlot)
+    private void AddItemStacks(BaseItemSlot dropItemSlot)
     {
         int numAddStacks = dropItemSlot.Item.maxStacks - dropItemSlot.ItemAmount;
         int stacksToAdd = Mathf.Min(numAddStacks, draggedSlot.ItemAmount);

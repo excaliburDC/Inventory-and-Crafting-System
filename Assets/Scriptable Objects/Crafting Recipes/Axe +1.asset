@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6bea954073f60f4988b3e4cbdf5c007, type: 3}
-  m_Name: New Crafting Recipe
+  m_Name: Axe +1
   m_EditorClassIdentifier: 
   materials:
-  - item: {fileID: 11400000, guid: ac3aa4b5ecafa5c43835623da5e0b231, type: 2}
+  - item: {fileID: 11400000, guid: 8deacf30e885b124eb0859f753b27f06, type: 2}
     amount: 1
-  - item: {fileID: 11400000, guid: 0ff5ce9a5e5f2db4ca8240f9d4e78539, type: 2}
-    amount: 1
+  - item: {fileID: 11400000, guid: 4626d7e299bd7c34c835a4bc3b63f5cf, type: 2}
+    amount: 2
   results:
-  - item: {fileID: 11400000, guid: 8fb29a80f247de7488404123c0b3de45, type: 2}
+  - item: {fileID: 11400000, guid: c0ac89788cbd12644b203a1ce9e62613, type: 2}
     amount: 1
