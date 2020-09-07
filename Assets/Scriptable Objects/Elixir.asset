@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09983952c43b7764cb5fbcecb2d05a33, type: 3}
+  m_Name: Elixir
+  m_EditorClassIdentifier: 
+  id: 616b7664da00e864cbcecfe6911e097c
+  itemName: Elixir
+  itemIcon: {fileID: 21300000, guid: 28d59d4aaf02fc94092d8b84d7f8fd64, type: 3}
+  maxStacks: 20
+  isConsumable: 1
+  itemEffects:
+  - {fileID: 11400000, guid: 88f24caef90bd1a4297febc6095c256e, type: 2}
+  - {fileID: 11400000, guid: 16907115ec7c1a947b42fa5cdb353dcf, type: 2}

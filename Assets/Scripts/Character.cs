@@ -5,6 +5,8 @@ using System;
 
 public class Character : MonoBehaviour
 {
+    public int health = 50;
+
     public CharacterStats strength;
     public CharacterStats intelligence;
     public CharacterStats charisma;
@@ -91,39 +93,43 @@ public class Character : MonoBehaviour
     private void EquipFromInventory(BaseItemSlot itemSlot)
     {
         Debug.Log("Equip Method called");
-        EquippableItem equippableItem = itemSlot.Item as EquippableItem;
+        if (itemSlot.Item is EquippableItem)
+		{
+			EquipItem((EquippableItem)itemSlot.Item);
+		}
+		else if (itemSlot.Item is UsableItem)
+		{
+			UsableItem usableItem = (UsableItem)itemSlot.Item;
+			usableItem.UseItem(this);
 
-        if(equippableItem!=null)
-        {
-            EquipItem(equippableItem);
-        }
+			if (usableItem.isConsumable)
+			{
+                Debug.Log("Item Used...");
+                inventory.RemoveItem(usableItem);
+                usableItem.DestroyItem();
+			}
+		}
     }
 
     private void UnequipFromPanel(BaseItemSlot itemSlot)
     {
         Debug.Log("Unequip Method called");
-        EquippableItem equippableItem = itemSlot.Item as EquippableItem;
-
-        if (equippableItem != null)
+        if (itemSlot.Item is EquippableItem)
         {
-            UnequipItem(equippableItem);
+            UnequipItem((EquippableItem)itemSlot.Item);
         }
     }
     private void ShowToolTip(BaseItemSlot itemSlot)
     {
-        EquippableItem equippableItem = itemSlot.Item as EquippableItem;
-
-        if (equippableItem != null)
+        if (itemSlot.Item != null)
         {
-            itemTooltip.ShowTooltip(equippableItem);
+            itemTooltip.ShowTooltip(itemSlot.Item);
         }
     }
 
     private void HideToolTip(BaseItemSlot itemSlot)
     {
-        EquippableItem equippableItem = itemSlot.Item as EquippableItem;
-
-        if (equippableItem != null)
+        if (itemTooltip.gameObject.activeSelf)
         {
             itemTooltip.HideToolTip();
         }
@@ -246,5 +252,10 @@ public class Character : MonoBehaviour
             statsPanel.UpdateStatsValue();
             inventory.AddItem(item);
         }
+    }
+
+    public void UpdateStatsValue()
+    {
+        statsPanel.UpdateStatsValue();
     }
 }

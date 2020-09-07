@@ -41,6 +41,8 @@ public class StatsDisplay : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
 
     [SerializeField] private StatToolTip statToolTip;
 
+    private bool showToolTip;
+
   
     private void OnValidate()
     {
@@ -57,16 +59,23 @@ public class StatsDisplay : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         statToolTip.ShowTooltip(CharStat,StatName);
+        showToolTip = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         statToolTip.HideToolTip();
+        showToolTip = false;
     }
 
     public void UpdateStatsValue()
     {
         statValue.text = _charStat.Value.ToString();
+
+        if (showToolTip)
+        {
+            statToolTip.ShowTooltip(CharStat, StatName);
+        }
     }
 
 

@@ -73,4 +73,56 @@ public class EquippableItem : Item
         c.charisma.RemoveAllModifiersFromSource(this);
         c.vitality.RemoveAllModifiersFromSource(this);
     }
+
+    public override string GetItemType()
+    {
+        return equipmentType.ToString();
+    }
+
+    public override string GetItemDescription()
+    {
+        sb.Length = 0;
+
+        //add stats for items
+        AddStats(strengthBonus, "Strength");
+        AddStats(intelligenceBonus, "Intelligence");
+        AddStats(charismaBonus, "Charisma");
+        AddStats(vitalityBonus, "Vitality");
+
+        //add bonus stats for item if it has any
+        AddStats(strengthPercentBonus, "Strength", true);
+        AddStats(intelligencePercentBonus, "Intelligence", true);
+        AddStats(charismaPercentBonus, "Charisma", true);
+        AddStats(vitalityPercentBonus, "Vitality", true);
+
+        return sb.ToString();
+    }
+
+    private void AddStats(float value, string statName, bool isPercent = false)
+    {
+        if (value != 0)
+        {
+            if (sb.Length > 0)
+                sb.AppendLine();
+
+            if (value > 0)
+                sb.Append("+");
+
+            if (isPercent)
+            {
+                sb.Append(value * 100);
+                sb.Append("% ");
+            }
+
+            else
+            {
+                sb.Append(value);
+                sb.Append(" ");
+            }
+
+
+            sb.Append(statName);
+        }
+
+    }
 }

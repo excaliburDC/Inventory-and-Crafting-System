@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 using UnityEditor;
 
 [CreateAssetMenu(menuName ="Inventory/Add Item")]
@@ -15,6 +16,7 @@ public class Item : ScriptableObject
     [Range(0, 100)]
     public int maxStacks = 1;
 
+    protected static readonly StringBuilder sb = new StringBuilder();
 
     private void OnValidate()
     {
@@ -31,5 +33,15 @@ public class Item : ScriptableObject
     public virtual void DestroyItem()
     {
 
+    }
+
+    public virtual string GetItemType()
+    {
+        return "";
+    }
+
+    public virtual string GetItemDescription()
+    {
+        return "";
     }
 }
