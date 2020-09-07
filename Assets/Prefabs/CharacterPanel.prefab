@@ -3196,7 +3196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377612313195651040}
   - component: {fileID: 8377612313195651041}
-  - component: {fileID: 8377612313195651070}
+  - component: {fileID: 6980511149040325910}
   m_Layer: 5
   m_Name: StatsDisplay3
   m_TagString: Untagged
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8377612313195651070
+--- !u!114 &6980511149040325910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5283,7 +5283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377612313683576630}
   - component: {fileID: 8377612313683576631}
-  - component: {fileID: 8377612313683576628}
+  - component: {fileID: 4266066908088263186}
   m_Layer: 5
   m_Name: StatsDisplay4
   m_TagString: Untagged
@@ -5333,7 +5333,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8377612313683576628
+--- !u!114 &4266066908088263186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5428,10 +5428,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statsDisplay:
-  - {fileID: 8377612314017763702}
-  - {fileID: 8377612314126663568}
-  - {fileID: 8377612313195651070}
-  - {fileID: 8377612313683576628}
+  - {fileID: 3452664248824254883}
+  - {fileID: 8895632093838990689}
+  - {fileID: 6980511149040325910}
+  - {fileID: 4266066908088263186}
   statsNames:
   - STRENGTH
   - INTELLIGENCE
@@ -6700,7 +6700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377612314017763704}
   - component: {fileID: 8377612314017763705}
-  - component: {fileID: 8377612314017763702}
+  - component: {fileID: 3452664248824254883}
   m_Layer: 5
   m_Name: StatsDisplay1
   m_TagString: Untagged
@@ -6750,7 +6750,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8377612314017763702
+--- !u!114 &3452664248824254883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7249,7 +7249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8377612314126663570}
   - component: {fileID: 8377612314126663571}
-  - component: {fileID: 8377612314126663568}
+  - component: {fileID: 8895632093838990689}
   m_Layer: 5
   m_Name: StatsDisplay2
   m_TagString: Untagged
@@ -7299,7 +7299,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &8377612314126663568
+--- !u!114 &8895632093838990689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -75,7 +75,7 @@ public class StatToolTip : MonoBehaviour
             }
 
 
-            EquippableItem item = mod.Source as EquippableItem;
+            Item item = mod.Source as Item;
 
             if(item!=null)
             {
@@ -85,7 +85,7 @@ public class StatToolTip : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Modifier is not Equippable Item");
+                Debug.LogError("Modifier is not an Item");
             }
         }
 
