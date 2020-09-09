@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,12 +20,21 @@ public class CraftingRecipe : ScriptableObject
 
     public List<ItemAmount> results;
 
+    
+
     public bool CanCraft(IItemContainer itemContainer)
+    {
+        return HasMaterials(itemContainer) && HasSpace(itemContainer); 
+
+    }
+
+    private bool HasMaterials(IItemContainer itemContainer)
     {
         foreach (ItemAmount itemAmt in materials)
         {
-            if(itemContainer.ItemCount(itemAmt.item.ID) < itemAmt.amount)
+            if (itemContainer.ItemCount(itemAmt.item.ID) < itemAmt.amount)
             {
+                Debug.LogWarning("You don't have the required materials.");
                 return false;
             }
 
@@ -32,6 +42,23 @@ public class CraftingRecipe : ScriptableObject
 
         return true;
     }
+
+    private bool HasSpace(IItemContainer itemContainer)
+    {
+        foreach (ItemAmount itemAmt in results)
+        {
+            if (!itemContainer.CanAddItem(itemAmt.item, itemAmt.amount))
+            {
+                Debug.LogWarning("Your inventory is full.");
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    
 
     public void CraftItem(IItemContainer itemContainer)
     {

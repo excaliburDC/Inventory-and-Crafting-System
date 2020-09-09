@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,56 +6,48 @@ public class Inventory : ItemContainer
 {
     [SerializeField] private List<Item> items;
     [SerializeField] private Transform itemsParent;
-    
 
-    public event Action<BaseItemSlot> OnItemPointerEnterEvent;
-    public event Action<BaseItemSlot> OnItemPointerExitEvent;
-    public event Action<BaseItemSlot> OnItemRightClickEvent;
-    public event Action<BaseItemSlot> OnItemBeginDragEvent;
-    public event Action<BaseItemSlot> OnItemEndDragEvent;
-    public event Action<BaseItemSlot> OnItemDragEvent;
-    public event Action<BaseItemSlot> OnItemDropEvent;
 
-    private void Start()
+    protected override void OnValidate()
     {
-        for (int i = 0; i < itemsSlot.Length; i++)
+        if (itemsParent != null)
         {
-            itemsSlot[i].OnPointerEnterEvent += OnItemPointerEnterEvent;
-            itemsSlot[i].OnPointerExitEvent += OnItemPointerExitEvent;
-            itemsSlot[i].OnRightClickEvent += OnItemRightClickEvent;
-            itemsSlot[i].OnBeginDragEvent += OnItemBeginDragEvent;
-            itemsSlot[i].OnEndDragEvent += OnItemEndDragEvent;
-            itemsSlot[i].OnDragEvent += OnItemDragEvent;
-            itemsSlot[i].OnDropEvent += OnItemDropEvent;
+            itemsSlot = itemsParent.GetComponentsInChildren<ItemSlot>(includeInactive:true);
         }
 
         RefreshItemsUI();
     }
 
-    private void OnValidate()
-    {
-        if (itemsParent != null) 
-        {
-            itemsSlot = itemsParent.GetComponentsInChildren<ItemSlot>();
-        }
 
+    protected override void Start()
+    {
+        base.Start();
         RefreshItemsUI();
     }
+
+   
     private void RefreshItemsUI()
     {
-        int i = 0;
+        ClearItem();
 
-        for (; i < items.Count && i<itemsSlot.Length; i++)
+        foreach (Item it in items)
         {
-            itemsSlot[i].Item = items[i].GetItemCopy();
-            itemsSlot[i].ItemAmount = 1;
+            AddItem(it.GetItemCopy());
         }
 
-        for (; i < itemsSlot.Length; i++)
-        {
-            itemsSlot[i].Item = null;
-            itemsSlot[i].ItemAmount = 0;
-        }
+        //int i = 0;
+
+        //for (; i < items.Count && i<itemsSlot.Length; i++)
+        //{
+        //    itemsSlot[i].Item = items[i].GetItemCopy();
+        //    itemsSlot[i].ItemAmount = 1;
+        //}
+
+        //for (; i < itemsSlot.Length; i++)
+        //{
+        //    itemsSlot[i].Item = null;
+        //    itemsSlot[i].ItemAmount = 0;
+        //}
     }
 
    

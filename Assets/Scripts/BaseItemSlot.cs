@@ -18,6 +18,8 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
     protected Color normalColor = Color.white;
     protected Color disabledColor = new Color(1, 1, 1, 0);
 
+    protected bool isPointerOver;
+
     protected Item _item;
     public Item Item
     {
@@ -30,7 +32,10 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
         {
             _item = value;
 
-            if(_item==null)
+            if (_item == null && ItemAmount != 0) 
+                ItemAmount = 0;
+
+            if (_item==null)
             {
                 itemImage.color=disabledColor;
 
@@ -39,6 +44,12 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
             {
                 itemImage.sprite = _item.itemIcon;
                 itemImage.color = normalColor;
+            }
+
+            if (isPointerOver)
+            {
+                OnPointerExit(null);
+                OnPointerEnter(null);
             }
         }
     }
@@ -59,7 +70,7 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
             if (_itemAmount < 0)
                 _itemAmount = 0;
 
-            if (_itemAmount == 0)
+            if (_itemAmount == 0 && Item != null)
                 Item = null;
 
             if(amountText!=null)
@@ -84,6 +95,15 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
         if (amountText == null)
             amountText = GetComponentInChildren<TMP_Text>();
 
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (isPointerOver) 
+        {
+            OnPointerExit(null);
+        }
+       
     }
 
     public virtual bool CanAddStack(Item item, int amount = 1)
@@ -113,6 +133,8 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        isPointerOver = true;
+
         if (OnPointerEnterEvent != null)
             OnPointerEnterEvent(this);
 
@@ -120,6 +142,8 @@ public class BaseItemSlot : MonoBehaviour,IPointerClickHandler,IPointerEnterHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        isPointerOver = false;
+
         if (OnPointerExitEvent != null)
             OnPointerExitEvent(this);
     }
