@@ -18,6 +18,8 @@ public class Character : MonoBehaviour
     [SerializeField] private StatsPanel statsPanel;
     [SerializeField] private ItemTooltip itemTooltip;
     [SerializeField] private Image draggableItem;
+    [SerializeField] DropItemArea dropItemArea;
+    [SerializeField] DropItemDialog dropItemDialog;
 
 
     private BaseItemSlot draggedSlot;
@@ -65,8 +67,10 @@ public class Character : MonoBehaviour
         //Drop
         inventory.OnItemDropEvent += Drop;
         equipmentPanel.OnItemDropEvent += Drop;
+        dropItemArea.OnDropEvent += DropItemFromInventory;
     }
 
+    
 
 
     #region For Click and Equip Method
@@ -258,4 +262,28 @@ public class Character : MonoBehaviour
     {
         statsPanel.UpdateStatsValue();
     }
+
+    private void DropItemFromInventory()
+    {
+        if (draggedSlot == null) return;
+
+        dropItemDialog.Show();
+        BaseItemSlot slot = draggedSlot;
+        dropItemDialog.OnYesEvent += () => DestroyItemInSlot(slot);
+    }
+
+    private void DestroyItemInSlot(BaseItemSlot itemSlot)
+    {
+        // If the item is equipped, unequip first
+        if (itemSlot is EquipmentSlot)
+        {
+            EquippableItem equippableItem = (EquippableItem)itemSlot.Item;
+            equippableItem.UnequipStat(this);
+            UpdateStatsValue();
+        }
+
+        itemSlot.Item.DestroyItem();
+        itemSlot.Item = null;
+    }
+
 }
